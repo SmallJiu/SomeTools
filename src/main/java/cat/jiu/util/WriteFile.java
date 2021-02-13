@@ -5,26 +5,37 @@ import java.io.*;
 public class WriteFile {
 	
 	public static void writeString(String path, String utf) throws FileNotFoundException, IOException {
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path)));
-			out.writeUTF(utf + System.getProperty("line.separator"));
-			out.writeUTF(utf + System.getProperty("line.separator"));
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path));
+			out.write(utf + "\n");
 			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 	
 	public static void writeOreItemModel(String path, String utf1, String utf2) throws FileNotFoundException, IOException {
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path, false)));
-			out.writeUTF("{");
-			out.writeUTF("\n\"parent\":\"item/generated\",");
-			out.writeUTF("\n	\"textures\": {");
-			out.writeUTF("\n		\"layer0\": \"jiu_tech:items/ore/" + utf1 + "/" + utf2 + "\"");
-			out.writeUTF("\n	}");
-			out.writeUTF("\n}");
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path));
+			out.write("{");
+			out.write("\n\"parent\":\"item/generated\",");
+			out.write("\n	\"textures\": {");
+			out.write("\n		\"layer0\": \"jiu_tech:items/ore/" + utf1 + "/" + utf2 + "\"");
+			out.write("\n	}");
+			out.write("\n}");
 			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 	
-	public static void writeOreItemLang(String path, String name, int meta) throws FileNotFoundException, IOException {
-		DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(path, true)));
-			out.writeUTF("item.jiu_tech." + name + "." + meta + ".name=\n");
+	public static void writeOreItemLang(String path, String name, int meta) {
+		try {
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(path, true));
+			out.write("item.jiu_tech." + name + "." + meta + ".name=\n");
 			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

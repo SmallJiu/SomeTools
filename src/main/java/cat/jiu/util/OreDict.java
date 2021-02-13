@@ -46,13 +46,13 @@ public class OreDict {
 	public static void oreDict() {
 		 for(ModOreListType oredict : ModOreListType.values()) {
 			    int meta = oredict.getMeta();
-			    String iod = oredict.getIngot() + oredict.getName();
-			    String nod = oredict.getNugget() + oredict.getName();
-			    String dod = oredict.getDust() + oredict.getName();
-			    String sod = oredict.getStick() + oredict.getName();
-			    String pod = oredict.getPlate() + oredict.getName();
-			    String god = oredict.getGear() + oredict.getName();
-		  	    String siod = oredict.getSingularity() + oredict.getName();
+			    String iod = oredict.getIngot() + oredict.getInitialsUpperCaseName();
+			    String nod = oredict.getNugget() + oredict.getInitialsUpperCaseName();
+			    String dod = oredict.getDust() + oredict.getInitialsUpperCaseName();
+			    String sod = oredict.getStick() + oredict.getInitialsUpperCaseName();
+			    String pod = oredict.getPlate() + oredict.getInitialsUpperCaseName();
+			    String god = oredict.getGear() + oredict.getInitialsUpperCaseName();
+		  	    String siod = oredict.getSingularity() + oredict.getInitialsUpperCaseName();
 				
 				System.out.println("OreDict：" + iod +"，Meta：" + meta);
 				System.out.println("OreDict：" + nod +"，Meta：" + meta);
@@ -97,21 +97,12 @@ public class OreDict {
 		String path = "src/main/resources/assets/jiu_tech/models/item/ore/";
 		File file = new File(path);
 		
-		ModOreListType modore = ModOreListType.values()[0];
-		
-		String iod = modore.getIngot();
-		String nod = modore.getNugget();
-		String dod = modore.getDust();
-		String sod = modore.getStick();
-		String pod = modore.getPlate();
-		String god = modore.getGear();
-		
-		File idir = new File(path + iod);
-		File ndir = new File(path + nod);
-		File ddir = new File(path + dod);
-		File sdir = new File(path + sod);
-		File pdir = new File(path + pod);
-		File gdir = new File(path + god);
+		File idir = new File(path + "ingot");
+		File ndir = new File(path + "nugget");
+		File ddir = new File(path + "dust");
+		File sdir = new File(path + "stick");
+		File pdir = new File(path + "plate");
+		File gdir = new File(path + "gear");
 		
 		if(!idir.isDirectory() && !ndir.isDirectory() && !ddir.isDirectory() && !sdir.isDirectory() && !pdir.isDirectory() && !gdir.isDirectory()) {
 			for(ModOreListType ore : ModOreListType.values()) {
@@ -124,18 +115,19 @@ public class OreDict {
 			}
 			System.out.println("创建文件夹完成\n");
 		}
-			
+		
 		if(!file.isDirectory()){
-			file.mkdir();
+			file.mkdirs();
 			for(ModOreListType ore : ModOreListType.values()){
 				int meta = ore.getMeta();
+				String name = ore.getAllLowerCaseName();
 				
-				String ipath = idir + "/" + iod + "." + meta + ".json";
-				String dpath = ddir + "/" + dod + "." + meta + ".json";
-				String npath = ndir + "/" + nod + "." + meta + ".json";
-				String gpath = gdir + "/" + god + "." + meta + ".json";
-				String ppath = pdir + "/" + pod + "." + meta + ".json";
-				String spath = sdir + "/" + sod + "." + meta + ".json";
+				String ipath = idir + "/" + name + "_ingot.json";
+				String dpath = ddir + "/" + name + "_dust.json";
+				String npath = ndir + "/" + name + "_nugget.json";
+				String gpath = gdir + "/" + name + "_gear.json";
+				String ppath = pdir + "/" + name + "_plate.json";
+				String spath = sdir + "/" + name + "_stick.json";
 				
 				File ifile = new File(ipath);
 				File dfile = new File(dpath);
@@ -151,24 +143,25 @@ public class OreDict {
 				pfile.createNewFile();
 				sfile.createNewFile();
 				
-				WriteFile.writeOreItemModel(ipath, iod, iod + "." + meta);
-			  	WriteFile.writeOreItemModel(dpath, dod, dod + "." + meta);
-			  	WriteFile.writeOreItemModel(npath, nod, nod + "." + meta);
-			  	WriteFile.writeOreItemModel(gpath, god, god + "." + meta);
-			  	WriteFile.writeOreItemModel(ppath, pod, pod + "." + meta);
-			  	WriteFile.writeOreItemModel(spath, sod, sod + "." + meta);
+				WriteFile.writeOreItemModel(ipath, "ingot", name + "_ingot");
+			  	WriteFile.writeOreItemModel(dpath, "dust", name + "_dust");
+			  	WriteFile.writeOreItemModel(npath, "nugget", name + "_nugget");
+			  	WriteFile.writeOreItemModel(gpath, "gear", name + "_gear");
+			  	WriteFile.writeOreItemModel(ppath, "plate", name + "_plate");
+			  	WriteFile.writeOreItemModel(spath, "stick", name + "_stick");
 			  	System.out.println("文件创建成功");
 			}
 		}else{
 			for(ModOreListType ore : ModOreListType.values()){
 				int meta = ore.getMeta();
+				String name = ore.getAllLowerCaseName();
 				
-				String ipath = idir + "/" + iod + "." + meta + ".json";
-				String dpath = ddir + "/" + dod + "." + meta + ".json";
-				String npath = ndir + "/" + nod + "." + meta + ".json";
-				String gpath = gdir + "/" + god + "." + meta + ".json";
-				String ppath = pdir + "/" + pod + "." + meta + ".json";
-				String spath = sdir + "/" + sod + "." + meta + ".json";
+				String ipath = idir + "/" + name + "_ingot.json";
+				String dpath = ddir + "/" + name + "_dust.json";
+				String npath = ndir + "/" + name + "_nugget.json";
+				String gpath = gdir + "/" + name + "_gear.json";
+				String ppath = pdir + "/" + name + "_plate.json";
+				String spath = sdir + "/" + name + "_stick.json";
 				
 				File ifile = new File(ipath);
 				File dfile = new File(dpath);
@@ -184,60 +177,66 @@ public class OreDict {
 				pfile.createNewFile();
 				sfile.createNewFile();
 				
-				WriteFile.writeOreItemModel(ipath, iod, iod + "." + meta);
-			  	WriteFile.writeOreItemModel(dpath, dod, dod + "." + meta);
-			  	WriteFile.writeOreItemModel(npath, nod, nod + "." + meta);
-			  	WriteFile.writeOreItemModel(gpath, god, god + "." + meta);
-			  	WriteFile.writeOreItemModel(ppath, pod, pod + "." + meta);
-			  	WriteFile.writeOreItemModel(spath, sod, sod + "." + meta);
+				WriteFile.writeOreItemModel(ipath, "ingot", name + "_ingot");
+			  	WriteFile.writeOreItemModel(dpath, "dust", name + "_dust");
+			  	WriteFile.writeOreItemModel(npath, "nugget", name + "_nugget");
+			  	WriteFile.writeOreItemModel(gpath, "gear", name + "_gear");
+			  	WriteFile.writeOreItemModel(ppath, "plate", name + "_plate");
+			  	WriteFile.writeOreItemModel(spath, "stick", name + "_stick");
 			  	System.out.println("文件创建成功");
 			}
 		}
 	}
 		
 	public static void writeOreDictName() throws FileNotFoundException, IOException {
-		String path = "src/main/resources/assets/jiu_tech/lang/zh_cn.json";
+		String path = "src/main/resources/assets/jiu_tech/lang";
 		File file = new File(path);
-			
+		
+		String filepath = path + "/zh_cn.json";
+		File filepath1 = new File(filepath);
+		
 		if(!file.isDirectory()) {
-			file.createNewFile();
-			for(ModOreListType oredict : ModOreListType.values()) {
-				int meta = oredict.getMeta();
-				String iod = oredict.getIngot();
-				String nod = oredict.getNugget();
-				String dod = oredict.getDust();
-				String sod = oredict.getStick();
-				String pod = oredict.getPlate();
-				String god = oredict.getGear();
-			  	String siod = oredict.getSingularity();
+			file.mkdirs();
+			if(!filepath1.isDirectory()) {
+				filepath1.createNewFile();
+				for(ModOreListType oredict : ModOreListType.values()) {
+					int meta = oredict.getMeta();
 					
-			  	WriteFile.writeOreItemLang(path, iod, meta);
-			  	WriteFile.writeOreItemLang(path, nod, meta);
-			  	WriteFile.writeOreItemLang(path, dod, meta);
-			  	WriteFile.writeOreItemLang(path, sod, meta);
-			  	WriteFile.writeOreItemLang(path, pod, meta);
-			  	WriteFile.writeOreItemLang(path, god, meta);
-			  	WriteFile.writeOreItemLang(path, siod,meta);
-			  	System.out.println("写入成功");
+				  	WriteFile.writeOreItemLang(filepath, "ingot", meta);
+				  	WriteFile.writeOreItemLang(filepath, "nugget", meta);
+				  	WriteFile.writeOreItemLang(filepath, "dust", meta);
+				  	WriteFile.writeOreItemLang(filepath, "stick", meta);
+				  	WriteFile.writeOreItemLang(filepath, "plate", meta);
+				  	WriteFile.writeOreItemLang(filepath, "gear", meta);
+				  	WriteFile.writeOreItemLang(filepath, "singularity",meta);
+				  	System.out.println("写入成功");
+				}
+			}else {
+				for(ModOreListType oredict : ModOreListType.values()) {
+					int meta = oredict.getMeta();
+					
+				  	WriteFile.writeOreItemLang(filepath, "ingot", meta);
+				  	WriteFile.writeOreItemLang(filepath, "nugget", meta);
+				  	WriteFile.writeOreItemLang(filepath, "dust", meta);
+				  	WriteFile.writeOreItemLang(filepath, "stick", meta);
+				  	WriteFile.writeOreItemLang(filepath, "plate", meta);
+				  	WriteFile.writeOreItemLang(filepath, "gear", meta);
+				  	WriteFile.writeOreItemLang(filepath, "singularity",meta);
+				  	System.out.println("写入成功");
+				}
 			}
+			
 		}else {
 			for(ModOreListType oredict : ModOreListType.values()) {
 				int meta = oredict.getMeta();
-				String iod = oredict.getIngot();
-				String nod = oredict.getNugget();
-				String dod = oredict.getDust();
-				String sod = oredict.getStick();
-				String pod = oredict.getPlate();
-				String god = oredict.getGear();
-				String siod = oredict.getSingularity();
 					
-			  	WriteFile.writeOreItemLang(path, iod, meta);
-			  	WriteFile.writeOreItemLang(path, nod, meta);
-			  	WriteFile.writeOreItemLang(path, dod, meta);
-			  	WriteFile.writeOreItemLang(path, sod, meta);
-			  	WriteFile.writeOreItemLang(path, pod, meta);
-			  	WriteFile.writeOreItemLang(path, god, meta);
-			  	WriteFile.writeOreItemLang(path, siod,meta);
+				WriteFile.writeOreItemLang(filepath, "ingot", meta);
+			  	WriteFile.writeOreItemLang(filepath, "nugget", meta);
+			  	WriteFile.writeOreItemLang(filepath, "dust", meta);
+			  	WriteFile.writeOreItemLang(filepath, "stick", meta);
+			  	WriteFile.writeOreItemLang(filepath, "plate", meta);
+			  	WriteFile.writeOreItemLang(filepath, "gear", meta);
+			  	WriteFile.writeOreItemLang(filepath, "singularity",meta);
 			  	System.out.println("写入成功");
 			}
 		}
